@@ -1,0 +1,38 @@
+Source: libjs-extjs
+Section: web
+Priority: optional
+Maintainer: Thomas Goirand <zigo@debian.org>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.9.0.0
+Homepage: http://www.extjs.com/
+
+Package: libjs-extjs
+Architecture: all
+Depends: ${misc:Depends}, libjs-jquery, javascript-common
+Description: a cross-browser JavaScript library
+ A cross-browser JavaScript library for building rich internet applications.
+ .
+ The Ext JS library is widely use in numerous web applications. It includes:
+ high performance, customizable UI widgets, well designed and extensible
+ Component model, qn intuitive, easy to use API, Commercial and Open Source
+ licenses available.  Ext JS supports all major web browsers including:
+ Internet Explorer 6+, FireFox 1.5+ (PC, Mac), Safari 3+, Opera 9+ (PC, Mac).
+ .
+ This package doesn't include the documentation that is available in the
+ package libjs-extjs-doc.
+
+Package: libjs-extjs-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Description: a cross-browser JavaScript library (docs)
+ A cross-browser JavaScript library for building rich internet applications.
+ .
+ The Ext JS library is widely use in numerous web applications. It includes:
+ high performance, customizable UI widgets, well designed and extensible
+ Component model, qn intuitive, easy to use API, Commercial and Open Source
+ licenses available.  Ext JS supports all major web browsers including:
+ Internet Explorer 6+, FireFox 1.5+ (PC, Mac), Safari 3+, Opera 9+ (PC,
+ Mac).
+ .
+ This package only includes the documentation of ExtJS (libjs-extjs).

@@ -1,0 +1,9 @@
+Document: libjs-extjs
+Title: Ext JS Documentation
+Author: Ext JS LLC
+Abstract: This manual describes the Ext JS cross browser library.
+Section: Web Development
+
+Format: HTML
+Index: /usr/share/doc/libjs-extjs-doc/index.html
+Files: /usr/share/doc/libjs-extjs-doc/*.html /usr/share/doc/libjs-extjs-doc/output/*.html

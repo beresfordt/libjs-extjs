@@ -1,0 +1,5 @@
+libjs-extjs (3.0.3-1) unstable; urgency=low
+
+  * Initial release. (Closes: #550031)
+
+ -- Thomas Goirand <zigo@debian.org>  Wed, 07 Oct 2009 10:45:22 +0800
