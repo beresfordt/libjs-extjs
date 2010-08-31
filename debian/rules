@@ -18,19 +18,19 @@ install:
 	mkdir -p $(CURDIR)/debian/libjs-extjs-doc/usr/share/doc/libjs-extjs-doc
 	cp -rf $(CURDIR)/INCLUDE_ORDER.txt $(CURDIR)/examples $(CURDIR)/debian/libjs-extjs-doc/usr/share/doc/libjs-extjs-doc
 	cp -rf $(CURDIR)/docs/index.html $(CURDIR)/docs/output $(CURDIR)/docs/resources $(CURDIR)/docs/welcome.html $(CURDIR)/debian/libjs-extjs-doc/usr/share/doc/libjs-extjs-doc
-	rmdir $(CURDIR)/debian/libjs-extjs-doc/usr/share/doc/libjs-extjs-doc/examples/spinner/images
+	#rmdir $(CURDIR)/debian/libjs-extjs-doc/usr/share/doc/libjs-extjs-doc/examples/spinner/images
 
 	# Install the javascript lib
 	mkdir -p $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs
 	cp -rf $(CURDIR)/ext-all-debug.js $(CURDIR)/ext.jsb2 $(CURDIR)/ext-all.js $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs
 	cp -rf $(CURDIR)/adapter $(CURDIR)/pkgs $(CURDIR)/resources $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs
-	rmdir $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs/resources/images/vista/dd
+	#rmdir $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs/resources/images/vista/dd
 
 	# Install the doc-base control file
 	install -D -m 0644 $(CURDIR)/debian/docbase $(CURDIR)/debian/libjs-extjs-doc/usr/share/doc-base/libjs-extjs-doc
 
 	# Remove empty directory
-	rm -rf $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs/resources/images/vista/tree
+	#rm -rf $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs/resources/images/vista/tree
 
 binary-indep: install
 	dh_testdir
