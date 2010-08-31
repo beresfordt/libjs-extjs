@@ -1,3 +1,12 @@
+libjs-extjs (3.0.3+dfsg0-2) unstable; urgency=low
+
+  * Removed examples/images-organizer and resources/*.swf to make the extjs
+    package DFSG compiliant (Closes: #591971).
+  * Added Vcs-Git and Vcs-Browser fields.
+  * Bumped Standard-Version to 3.9.1.
+
+ -- Thomas Goirand <zigo@debian.org>  Tue, 31 Aug 2010 22:27:49 +0800
+
 libjs-extjs (3.0.3-1) unstable; urgency=low
 
   * Initial release. (Closes: #550031)

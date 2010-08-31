@@ -3,7 +3,9 @@ Section: web
 Priority: optional
 Maintainer: Thomas Goirand <zigo@debian.org>
 Build-Depends: debhelper (>= 7)
-Standards-Version: 3.9.0.0
+Standards-Version: 3.9.1
+Vcs-Browser: http://git.debian.org/?p=pkg-javascript/libjs-extjs.git
+Vcs-Git: http://git.debian.org/git/pkg-javascript/libjs-extjs.git
 Homepage: http://www.extjs.com/
 
 Package: libjs-extjs
