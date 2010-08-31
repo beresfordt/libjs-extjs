@@ -1,4 +1,4 @@
-libjs-extjs (3.0.3+dfsg0-2) unstable; urgency=low
+libjs-extjs (3.0.3+dfsg0-1) unstable; urgency=low
 
   * Removed examples/images-organizer and resources/*.swf to make the extjs
     package DFSG compiliant (Closes: #591971).
