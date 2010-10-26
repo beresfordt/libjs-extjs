@@ -6,6 +6,7 @@ http://www.extjs.com/products/extjs/download.php
 
 Upstream Author:
 	Ext JS, LLC <licensing@extjs.com>
+	Aaron Conran <aaron@sencha.com>
 
 Files: debian/*
 Copyright: (c) 2009, Thomas Goirand <thomas@goirand.fr>
