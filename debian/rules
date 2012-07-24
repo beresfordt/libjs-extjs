@@ -13,6 +13,7 @@ install:
 	dh_testroot
 	dh_clean
 	dh_prep
+	dh_installexamples
 
 	# Install the docs
 	mkdir -p $(CURDIR)/debian/libjs-extjs-doc/usr/share/doc/libjs-extjs-doc
