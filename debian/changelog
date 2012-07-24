@@ -1,3 +1,10 @@
+libjs-extjs (3.4.0-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * New upstream release
+
+ -- Tom Beresford <tom.beresford@bskyb.com>  Tue, 24 Jul 2012 17:11:33 +0100
+
 libjs-extjs (3.0.3+dfsg0-1) unstable; urgency=low
 
   * Removed examples/images-organizer and resources/*.swf to make the extjs
