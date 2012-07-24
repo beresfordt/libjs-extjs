@@ -1,8 +1,8 @@
 /*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
 ﻿/**
  * List compiled by mystix on the extjs.com forums.
@@ -39,7 +39,7 @@ Date.monthNames = [
   "Január",
   "Február",
   "Március",
-  "�?prilis",
+  "Április",
   "Május",
   "Június",
   "Július",
@@ -58,7 +58,7 @@ Date.monthNumbers = {
   'Jan' : 0,
   'Feb' : 1,
   'Már' : 2,
-  '�?pr' : 3,
+  'Ápr' : 3,
   'Máj' : 4,
   'Jún' : 5,
   'Júl' : 6,
@@ -164,7 +164,8 @@ if(Ext.form.DateField){
     maxText           : "A dátum nem lehet későbbi, mint {0}",
     invalidText       : "{0} nem megfelelő dátum - a helyes formátum: {1}",
     format            : "Y m d",
-    altFormats        : "Y-m-d|y-m-d|y/m/d|m/d|m-d|md|ymd|Ymd|d"
+    altFormats        : "Y-m-d|y-m-d|y/m/d|m/d|m-d|md|ymd|Ymd|d",
+    startDay          : 0
   });
 }
 
@@ -290,7 +291,7 @@ if(Ext.grid.PropertyColumnModel){
 
 if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
   Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
-    splitTip            : "�?tméretezés húzásra.",
-    collapsibleSplitTip : "�?tméretezés húzásra. Eltüntetés duplaklikk."
+    splitTip            : "Átméretezés húzásra.",
+    collapsibleSplitTip : "Átméretezés húzásra. Eltüntetés duplaklikk."
   });
 }
