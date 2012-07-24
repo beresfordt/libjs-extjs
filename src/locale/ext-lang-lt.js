@@ -1,8 +1,8 @@
 /*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
 /**
  * Lithuanian Translations (UTF-8)
@@ -20,7 +20,7 @@ if(Ext.DataView){
   Ext.DataView.prototype.emptyText = "";
 }
 if(Ext.grid.GridPanel){
-  Ext.grid.GridPanel.prototype.ddText = "{0} pažymėtų eilu�?ių";
+  Ext.grid.GridPanel.prototype.ddText = "{0} pažymėtų eilučių";
 }
 
 if(Ext.TabPanelItem){
@@ -86,7 +86,7 @@ Date.dayNames = [
   "Sekmadienis",
   "Pirmadienis",
   "Antradienis",
-  "Tre�?iadienis",
+  "Trečiadienis",
   "Ketvirtadienis",
   "Penktadienis",
   "Šeštadienis"
@@ -175,7 +175,8 @@ if(Ext.form.DateField){
     maxText           : "Šiame lauke data turi būti mažesnėė už {0}",
     invalidText       : "{0} yra neteisinga data - ji turi būti įvesta formatu {1}",
     format            : "y-m-d",
-    altFormats        : "y-m-d|y/m/d|Y-m-d|m/d|m-d|md|ymd|Ymd|d|Y-m-d"
+    altFormats        : "y-m-d|y/m/d|Y-m-d|m/d|m-d|md|ymd|Ymd|d|Y-m-d",
+    startDay          : 1
   });
 }
 
@@ -191,7 +192,7 @@ if(Ext.form.VTypes){
     emailText    : 'Šiame lauke turi būti el.pašto adresas formatu "user@example.com"',
     urlText      : 'Šiame lauke turi būti nuoroda (URL) formatu "http:/'+'/www.example.com"',
     alphaText    : 'Šiame lauke gali būti tik raidės ir ženklas "_"',
-    alphanumText : 'Šiame lauke gali būti tik raidės, skai�?iai ir ženklas "_"'
+    alphanumText : 'Šiame lauke gali būti tik raidės, skaičiai ir ženklas "_"'
   });
 }
 
@@ -279,8 +280,8 @@ if(Ext.form.BasicForm){
   
 if(Ext.grid.GridView){
   Ext.apply(Ext.grid.GridView.prototype, {
-    sortAscText  : "Rūšiuoti didėjan�?ia tvarka",
-    sortDescText : "Rūšiuoti mažėjan�?ia tvarka",
+    sortAscText  : "Rūšiuoti didėjančia tvarka",
+    sortDescText : "Rūšiuoti mažėjančia tvarka",
     lockText     : "Užfiksuoti stulpelį",
     unlockText   : "Atlaisvinti stulpelį",
     columnsText  : "Stulpeliai"

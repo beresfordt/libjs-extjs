@@ -1,15 +1,16 @@
 <html>
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
   <title>The source code</title>
     <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
 </head>
 <body  onload="prettyPrint();">
     <pre class="prettyprint lang-js">/*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
 <div id="cls-Ext.util.JSON"></div>/**
  * @class Ext.util.JSON
@@ -35,7 +36,7 @@ Ext.util.JSON = new (function(){
             return n < 10 ? "0" + n : n;
         },
         doDecode = function(json){
-            return eval("(" + json + ')');    
+            return json ? eval("(" + json + ")") : "";    
         },
         doEncode = function(o){
             if(!Ext.isDefined(o) || o === null){
@@ -123,6 +124,18 @@ Ext.util.JSON = new (function(){
                 return a.join("");
         };
 
+    <div id="method-Ext.util.JSON-encodeDate"></div>/**
+     * <p>Encodes a Date. This returns the actual string which is inserted into the JSON string as the literal expression.
+     * <b>The returned value includes enclosing double quotation marks.</b></p>
+     * <p>The default return format is "yyyy-mm-ddThh:mm:ss".</p>
+     * <p>To override this:</p><pre><code>
+Ext.util.JSON.encodeDate = function(d) {
+    return d.format('"Y-m-d"');
+};
+</code></pre>
+     * @param {Date} d The Date to encode
+     * @return {String} The string literal to use in a JSON string.
+     */
     this.encodeDate = function(o){
         return '"' + o.getFullYear() + "-" +
                 pad(o.getMonth() + 1) + "-" +
@@ -183,6 +196,6 @@ Ext.encode = Ext.util.JSON.encode;
  * @method decode
  */
 Ext.decode = Ext.util.JSON.decode;
-</pre>
+</pre>    
 </body>
 </html>

@@ -1,15 +1,16 @@
 <html>
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
   <title>The source code</title>
     <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
 </head>
 <body  onload="prettyPrint();">
     <pre class="prettyprint lang-js">/*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
 <div id="cls-Ext.data.ArrayReader"></div>/**
  * @class Ext.data.ArrayReader
@@ -62,17 +63,11 @@ Ext.data.ArrayReader = Ext.extend(Ext.data.JsonReader, {
         this.arrayData = o;
         var s = this.meta,
             sid = s ? Ext.num(s.idIndex, s.id) : null,
-            recordType = this.recordType, 
+            recordType = this.recordType,
             fields = recordType.prototype.fields,
             records = [],
+            success = true,
             v;
-
-        if(!this.getRoot) {
-            this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p) {return p;};
-            if(s.totalProperty) {
-                this.getTotal = this.getJsonAccessor(s.totalProperty);
-            }
-        }
 
         var root = this.getRoot(o);
 
@@ -100,12 +95,19 @@ Ext.data.ArrayReader = Ext.extend(Ext.data.JsonReader, {
                 totalRecords = v;
             }
         }
+        if(s.successProperty){
+            v = this.getSuccess(o);
+            if(v === false || v === 'false'){
+                success = false;
+            }
+        }
 
         return {
+            success : success,
             records : records,
             totalRecords : totalRecords
         };
     }
-});</pre>
+});</pre>    
 </body>
 </html>

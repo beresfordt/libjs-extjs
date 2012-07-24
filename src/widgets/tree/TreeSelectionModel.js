@@ -1,45 +1,46 @@
 /*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
 /**
  * @class Ext.tree.DefaultSelectionModel
  * @extends Ext.util.Observable
  * The default single selection for a TreePanel.
  */
-Ext.tree.DefaultSelectionModel = function(config){
-   this.selNode = null;
+Ext.tree.DefaultSelectionModel = Ext.extend(Ext.util.Observable, {
+    
+    constructor : function(config){
+        this.selNode = null;
    
-   this.addEvents(
-       /**
-        * @event selectionchange
-        * Fires when the selected node changes
-        * @param {DefaultSelectionModel} this
-        * @param {TreeNode} node the new selection
-        */
-       "selectionchange",
+        this.addEvents(
+            /**
+             * @event selectionchange
+             * Fires when the selected node changes
+             * @param {DefaultSelectionModel} this
+             * @param {TreeNode} node the new selection
+             */
+            'selectionchange',
 
-       /**
-        * @event beforeselect
-        * Fires before the selected node changes, return false to cancel the change
-        * @param {DefaultSelectionModel} this
-        * @param {TreeNode} node the new selection
-        * @param {TreeNode} node the old selection
-        */
-       "beforeselect"
-   );
+            /**
+             * @event beforeselect
+             * Fires before the selected node changes, return false to cancel the change
+             * @param {DefaultSelectionModel} this
+             * @param {TreeNode} node the new selection
+             * @param {TreeNode} node the old selection
+             */
+            'beforeselect'
+        );
 
-    Ext.apply(this, config);
-    Ext.tree.DefaultSelectionModel.superclass.constructor.call(this);
-};
-
-Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
+        Ext.apply(this, config);
+        Ext.tree.DefaultSelectionModel.superclass.constructor.call(this);    
+    },
+    
     init : function(tree){
         this.tree = tree;
         tree.mon(tree.getTreeEl(), 'keydown', this.onKeyDown, this);
-        tree.on("click", this.onNodeClick, this);
+        tree.on('click', this.onNodeClick, this);
     },
     
     onNodeClick : function(node, e){
@@ -60,12 +61,12 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
         if(node == last){
             node.ui.onSelectedChange(true);
         }else if(this.fireEvent('beforeselect', this, node, last) !== false){
-            if(last){
+            if(last && last.ui){
                 last.ui.onSelectedChange(false);
             }
             this.selNode = node;
             node.ui.onSelectedChange(true);
-            this.fireEvent("selectionchange", this, node, last);
+            this.fireEvent('selectionchange', this, node, last);
         }
         return node;
     },
@@ -73,22 +74,26 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
     /**
      * Deselect a node.
      * @param {TreeNode} node The node to unselect
+     * @param {Boolean} silent True to stop the selectionchange event from firing.
      */
-    unselect : function(node){
+    unselect : function(node, silent){
         if(this.selNode == node){
-            this.clearSelections();
+            this.clearSelections(silent);
         }    
     },
     
     /**
      * Clear all selections
+     * @param {Boolean} silent True to stop the selectionchange event from firing.
      */
-    clearSelections : function(){
+    clearSelections : function(silent){
         var n = this.selNode;
         if(n){
             n.ui.onSelectedChange(false);
             this.selNode = null;
-            this.fireEvent("selectionchange", this, null);
+            if(silent !== true){
+                this.fireEvent('selectionchange', this, null);
+            }
         }
         return n;
     },
@@ -206,27 +211,28 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
  * @extends Ext.util.Observable
  * Multi selection for a TreePanel.
  */
-Ext.tree.MultiSelectionModel = function(config){
-   this.selNodes = [];
-   this.selMap = {};
-   this.addEvents(
-       /**
-        * @event selectionchange
-        * Fires when the selected nodes change
-        * @param {MultiSelectionModel} this
-        * @param {Array} nodes Array of the selected nodes
-        */
-       "selectionchange"
-   );
-    Ext.apply(this, config);
-    Ext.tree.MultiSelectionModel.superclass.constructor.call(this);
-};
-
-Ext.extend(Ext.tree.MultiSelectionModel, Ext.util.Observable, {
+Ext.tree.MultiSelectionModel = Ext.extend(Ext.util.Observable, {
+    
+    constructor : function(config){
+        this.selNodes = [];
+        this.selMap = {};
+        this.addEvents(
+            /**
+             * @event selectionchange
+             * Fires when the selected nodes change
+             * @param {MultiSelectionModel} this
+             * @param {Array} nodes Array of the selected nodes
+             */
+            'selectionchange'
+        );
+        Ext.apply(this, config);
+        Ext.tree.MultiSelectionModel.superclass.constructor.call(this);    
+    },
+    
     init : function(tree){
         this.tree = tree;
         tree.mon(tree.getTreeEl(), 'keydown', this.onKeyDown, this);
-        tree.on("click", this.onNodeClick, this);
+        tree.on('click', this.onNodeClick, this);
     },
     
     onNodeClick : function(node, e){
@@ -256,7 +262,7 @@ Ext.extend(Ext.tree.MultiSelectionModel, Ext.util.Observable, {
         this.selMap[node.id] = node;
         this.lastSelNode = node;
         node.ui.onSelectedChange(true);
-        this.fireEvent("selectionchange", this, this.selNodes);
+        this.fireEvent('selectionchange', this, this.selNodes);
         return node;
     },
     
@@ -273,7 +279,7 @@ Ext.extend(Ext.tree.MultiSelectionModel, Ext.util.Observable, {
                 this.selNodes.splice(index, 1);
             }
             delete this.selMap[node.id];
-            this.fireEvent("selectionchange", this, this.selNodes);
+            this.fireEvent('selectionchange', this, this.selNodes);
         }
     },
     
@@ -289,7 +295,7 @@ Ext.extend(Ext.tree.MultiSelectionModel, Ext.util.Observable, {
             this.selNodes = [];
             this.selMap = {};
             if(suppressEvent !== true){
-                this.fireEvent("selectionchange", this, this.selNodes);
+                this.fireEvent('selectionchange', this, this.selNodes);
             }
         }
     },
@@ -308,7 +314,7 @@ Ext.extend(Ext.tree.MultiSelectionModel, Ext.util.Observable, {
      * @return {Array}
      */
     getSelectedNodes : function(){
-        return this.selNodes;    
+        return this.selNodes.concat([]);
     },
 
     onKeyDown : Ext.tree.DefaultSelectionModel.prototype.onKeyDown,

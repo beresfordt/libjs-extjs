@@ -1,15 +1,16 @@
 <html>
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
   <title>The source code</title>
     <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
 </head>
 <body  onload="prettyPrint();">
     <pre class="prettyprint lang-js">/*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
 <div id="cls-Ext.PagingToolbar"></div>/**
  * @class Ext.PagingToolbar
@@ -226,6 +227,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             allowNegative: false,
             enableKeyEvents: true,
             selectOnFocus: true,
+            submitValue: false,
             listeners: {
                 scope: this,
                 keydown: this.onPagingKeyDown,
@@ -427,12 +429,6 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     },
 
     // private
-    getParams : function(){
-        //retain backwards compat, allow params on the toolbar itself, if they exist.
-        return this.paramNames || this.store.paramNames;
-    },
-
-    // private
     beforeLoad : function(){
         if(this.rendered && this.refresh){
             this.refresh.disable();
@@ -546,6 +542,6 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 });
 
 })();
-Ext.reg('paging', Ext.PagingToolbar);</pre>
+Ext.reg('paging', Ext.PagingToolbar);</pre>    
 </body>
 </html>

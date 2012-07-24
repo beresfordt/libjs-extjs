@@ -1,8 +1,8 @@
 /*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
 /**
  * @class Ext.KeyNav
@@ -61,8 +61,8 @@ Ext.KeyNav.prototype = {
 
     // private
     relay : function(e){
-        var k = e.getKey();
-        var h = this.keyToHandler[k];
+        var k = e.getKey(),
+            h = this.keyToHandler[k];
         if(h && this[h]){
             if(this.doRelay(e, this[h], h) !== true){
                 e[this.defaultEventAction]();
@@ -72,7 +72,7 @@ Ext.KeyNav.prototype = {
 
     // private
     doRelay : function(e, h, hname){
-        return h.call(this.scope || this, e);
+        return h.call(this.scope || this, e, hname);
     },
 
     // possible handlers
@@ -88,6 +88,7 @@ Ext.KeyNav.prototype = {
     del : false,
     home : false,
     end : false,
+    space : false,
 
     // quick lookup hash
     keyToHandler : {
@@ -102,7 +103,8 @@ Ext.KeyNav.prototype = {
         35 : "end",
         13 : "enter",
         27 : "esc",
-        9  : "tab"
+        9  : "tab",
+        32 : "space"
     },
     
     stopKeyUp: function(e) {
@@ -113,6 +115,13 @@ Ext.KeyNav.prototype = {
             // *** (note: this bugfix sacrifices the "keyup" event originating from keyNav elements in Safari 2)
             e.stopEvent();
         }
+    },
+    
+    /**
+     * Destroy this KeyNav (this is the same as calling disable).
+     */
+    destroy: function(){
+        this.disable();    
     },
 
 	/**

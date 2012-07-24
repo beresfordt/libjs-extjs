@@ -1,16 +1,16 @@
 /*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
 /**
  * Czech Translations
- * Translated by Tomáš Kor�?ák (72)
+ * Translated by Tomáš Korčák (72)
  * 2008/02/08 18:02, Ext-2.0.1
  */
 
-Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Prosím �?ekejte...</div>';
+Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Prosím čekejte...</div>';
 
 if(Ext.View){
    Ext.View.prototype.emptyText = "";
@@ -29,7 +29,7 @@ if(Ext.form.Field){
 }
 
 if(Ext.LoadMask){
-    Ext.LoadMask.prototype.msg = "Prosím �?ekejte...";
+    Ext.LoadMask.prototype.msg = "Prosím čekejte...";
 }
 
 Date.monthNames = [
@@ -47,27 +47,44 @@ Date.monthNames = [
    "Prosinec"
 ];
 
+Date.shortMonthNames = {
+    "Leden"     : "Led",
+    "Únor"      : "Úno",
+    "Březen"    : "Bře",
+    "Duben"     : "Dub",
+    "Květen"    : "Kvě",
+    "Červen"    : "Čer",
+    "Červenec"  : "Čvc",
+    "Srpen"     : "Srp",
+    "Září"      : "Zář",
+    "Říjen"     : "Říj",
+    "Listopad"  : "Lis",
+    "Prosinec"  : "Pro"
+};
+
+
 Date.getShortMonthName = function(month) {
-  return Date.monthNames[month].substring(0, 3);
+  return Date.shortMonthNames[Date.monthNames[month]];
 };
 
 Date.monthNumbers = {
-  Jan : 0,
-  Feb : 1,
-  Mar : 2,
-  Apr : 3,
-  May : 4,
-  Jun : 5,
-  Jul : 6,
-  Aug : 7,
-  Sep : 8,
-  Oct : 9,
-  Nov : 10,
-  Dec : 11
+   "Leden"      : 0,
+   "Únor"       : 1,
+   "Březen"     : 2,
+   "Duben"      : 3,
+   "Květen"     : 4,
+   "Červen"     : 5,
+   "Červenec"   : 6,
+   "Srpen"      : 7,
+   "Září"       : 8,
+   "Říjen"      : 9,
+   "Listopad"   : 10,
+   "Prosinec"   : 11
 };
 
+
 Date.getMonthNumber = function(name) {
-  return Date.monthNumbers[name.substring(0, 1).toUpperCase() + name.substring(1, 3).toLowerCase()];
+  return Date.monthNumbers[name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase()];
 };
 
 Date.dayNames = [
@@ -149,7 +166,7 @@ if(Ext.form.NumberField){
    Ext.apply(Ext.form.NumberField.prototype, {
       minText : "Hodnota v tomto poli nesmí být menší než {0}",
       maxText : "Hodnota v tomto poli nesmí být větší než {0}",
-      nanText : "{0} není platné �?íslo"
+      nanText : "{0} není platné číslo"
    });
 }
 
@@ -161,13 +178,14 @@ if(Ext.form.DateField){
       maxText           : "Datum v tomto poli nesmí být novější než {0}",
       invalidText       : "{0} není platným datem - zkontrolujte zda-li je ve formátu {1}",
       format            : "d.m.Y",
-      altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d"
+      altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d",
+      startDay          : 1
    });
 }
 
 if(Ext.form.ComboBox){
    Ext.apply(Ext.form.ComboBox.prototype, {
-      loadingText       : "Prosím �?ekejte...",
+      loadingText       : "Prosím čekejte...",
       valueNotFoundText : undefined
    });
 }
@@ -177,7 +195,7 @@ if(Ext.form.VTypes){
       emailText    : 'V tomto poli může být vyplněna pouze emailová adresa ve formátu "uživatel@doména.cz"',
       urlText      : 'V tomto poli může být vyplněna pouze URL (adresa internetové stránky) ve formátu "http:/'+'/www.doména.cz"',
       alphaText    : 'Toto pole může obsahovat pouze písmena abecedy a znak _',
-      alphanumText : 'Toto pole může obsahovat pouze písmena abecedy, �?ísla a znak _'
+      alphanumText : 'Toto pole může obsahovat pouze písmena abecedy, čísla a znak _'
    });
 }
 
@@ -186,13 +204,13 @@ if(Ext.form.HtmlEditor){
     createLinkText : 'Zadejte URL adresu odkazu:',
     buttonTips : {
       bold : {
-        title: 'Tu�?né (Ctrl+B)',
-        text: 'Ozna�?í vybraný text tu�?ně.',
+        title: 'Tučné (Ctrl+B)',
+        text: 'Označí vybraný text tučně.',
         cls: 'x-html-editor-tip'
       },
       italic : {
         title: 'Kurzíva (Ctrl+I)',
-        text: 'Ozna�?í vybraný text kurzívou.',
+        text: 'Označí vybraný text kurzívou.',
         cls: 'x-html-editor-tip'
       },
       underline : {
@@ -212,7 +230,7 @@ if(Ext.form.HtmlEditor){
       },
       backcolor : {
         title: 'Barva zvýraznění textu',
-        text: 'Ozna�?í vybraný text tak, aby vypadal jako ozna�?ený zvýrazňova�?em.',
+        text: 'Označí vybraný text tak, aby vypadal jako označený zvýrazňovačem.',
         cls: 'x-html-editor-tip'
       },
       forecolor : {
@@ -237,12 +255,12 @@ if(Ext.form.HtmlEditor){
       },
       insertunorderedlist : {
         title: 'Odrážky',
-        text: 'Za�?ne seznam s odrážkami.',
+        text: 'Začne seznam s odrážkami.',
         cls: 'x-html-editor-tip'
       },
       insertorderedlist : {
         title: 'Číslování',
-        text: 'Za�?ne �?íslovaný seznam.',
+        text: 'Začne číslovaný seznam.',
         cls: 'x-html-editor-tip'
       },
       createlink : {

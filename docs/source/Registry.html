@@ -1,15 +1,16 @@
 <html>
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
   <title>The source code</title>
     <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
 </head>
 <body  onload="prettyPrint();">
     <pre class="prettyprint lang-js">/*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
 <div id="cls-Ext.dd.Registry"></div>/**
  * @class Ext.dd.Registry
@@ -37,7 +38,7 @@ Ext.dd.Registry = function(){
     return {
     <div id="method-Ext.dd.Registry-register"></div>/**
      * Resgister a drag drop element
-     * @param {String/HTMLElement) element The id or DOM node to register
+     * @param {String/HTMLElement} element The id or DOM node to register
      * @param {Object} data (optional) An custom data object that will be passed between the elements that are involved
      * in drag drop operations.  You can populate this object with any arbitrary properties that your own code
      * knows how to interpret, plus there are some specific properties known to the Registry that should be
@@ -71,7 +72,7 @@ isHandle   True if the element passed in triggers<br />
 
     <div id="method-Ext.dd.Registry-unregister"></div>/**
      * Unregister a drag drop element
-     * @param {String/HTMLElement) element The id or DOM node to unregister
+     * @param {String/HTMLElement} element The id or DOM node to unregister
      */
         unregister : function(el){
             var id = getId(el, false);
@@ -131,6 +132,6 @@ isHandle   True if the element passed in triggers<br />
             return t ? elements[t.id] || handles[t.id] : null;
         }
     };
-}();</pre>
+}();</pre>    
 </body>
 </html>

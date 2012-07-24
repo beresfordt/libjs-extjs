@@ -19,15 +19,23 @@
         }
     </style>
     <script type="text/javascript">
-
         Ext.onReady(function() {
-
-            var replace = function(config){
+            var currentName;
+            var replace = function(config, name) {
                 var btns = Ext.getCmp('btns');
-                btns.remove(0);
-                btns.add(config);
-
+                
+                if (name && name != currentName) {
+                    currentName = name;
+                    
+                    btns.remove(0);
+                
+                    btns.add(config);
+                };
+                
+                // console.profile();
+                
                 btns.doLayout();
+                // console.profileEnd();
             }
 
 
@@ -67,7 +75,7 @@
                         },
                         items: [{
                             xtype:'button',
-                            text: 'Spaced',
+                            text: 'Spaced / Align: left',
                             handler: function(){
                                 replace({
                                     layout: {
@@ -93,11 +101,11 @@
                                         text: 'Button 4',
                                         margins:'0'
                                     }]
-                                });
+                                }, 'spaced');
                             }
                         },{
                             xtype:'button',
-                            text: 'Multi-Spaced',
+                            text: 'Multi-Spaced / Align: left',
                             handler: function(){
                                 replace({
                                     layout: {
@@ -129,11 +137,11 @@
                                         text: 'Button 4',
                                         margins:'0'
                                     }]
-                                });
+                                }, 'multi spaced - align left');
                             }
                         },{
                             xtype:'button',
-                            text: 'Align: top',
+                            text: 'Align: left',
                             handler: function(){
                                 replace({
                                     layout: {
@@ -155,11 +163,11 @@
                                         xtype:'button',
                                         text: 'Button 4'
                                     }]
-                                });
+                                }, 'align left');
                             }
                         },{
                             xtype:'button',
-                            text: 'Align: middle',
+                            text: 'Align: center',
                             handler: function(){
                                 replace({
                                     layout: {
@@ -181,7 +189,7 @@
                                         xtype:'button',
                                         text: 'Button 4'
                                     }]
-                                });
+                                }, 'align center');
                             }
                         },{
                             xtype:'button',
@@ -207,7 +215,7 @@
                                         xtype:'button',
                                         text: 'Button 4'
                                     }]
-                                });
+                                }, 'align stretch');
                             }
                         },{
                             xtype:'button',
@@ -233,7 +241,7 @@
                                         xtype:'button',
                                         text: 'Button 4'
                                     }]
-                                });
+                                }, 'align stretchmax');
                             }
                         }]
                     },{
@@ -251,7 +259,7 @@
                         },
                         items: [{
                             xtype:'button',
-                            text: 'Flex: All even',
+                            text: 'Flex: Even / Align: center',
                             handler: function(){
                                 replace({
                                     layout: {
@@ -278,11 +286,11 @@
                                         flex:1,
                                         margins:'0'
                                     }]
-                                });
+                                }, 'align flex even');
                             }
                         },{
                             xtype:'button',
-                            text: 'Flex: Ratio',
+                            text: 'Flex: Ratio / Align: center',
                             handler: function(){
                                 replace({
                                     layout: {
@@ -309,7 +317,7 @@
                                         flex:3,
                                         margins:'0'
                                     }]
-                                });
+                                }, 'align flex ratio');
                             }
                         },{
                             xtype:'button',
@@ -340,11 +348,11 @@
                                         flex:3,
                                         margins:'0'
                                     }]
-                                });
+                                }, 'align flex + stretch');
                             }
                         },{
                             xtype:'button',
-                            text: 'Pack: start',
+                            text: 'Pack: start / Align: center',
                             handler: function(){
                                 replace({
                                     layout: {
@@ -367,11 +375,11 @@
                                         xtype:'button',
                                         text: 'Button 4'
                                     }]
-                                });
+                                }, 'align pack start + align center');
                             }
                         },{
                             xtype:'button',
-                            text: 'Pack: center',
+                            text: 'Pack: center / Align: center',
                             handler: function(){
                                 replace({
                                     layout: {
@@ -395,11 +403,11 @@
                                         text: 'Button 4',
                                         margins:'0'
                                     }]
-                                });
+                                }, 'align pack center + align center');
                             }
                         },{
                             xtype:'button',
-                            text: 'Pack: end',
+                            text: 'Pack: end / Align: center',
                             handler: function(){
                                 replace({
                                     layout: {
@@ -423,7 +431,7 @@
                                         text: 'Button 4',
                                         margins:'0'
                                     }]
-                                });
+                                }, 'align pack end + align center');
                             }
                         }]
                     }]

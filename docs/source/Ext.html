@@ -1,17 +1,17 @@
 <html>
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
   <title>The source code</title>
     <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
 </head>
 <body  onload="prettyPrint();">
     <pre class="prettyprint lang-js">/*!
- * Ext JS Library 3.0.3
- * Copyright(c) 2006-2009 Ext JS, LLC
- * licensing@extjs.com
- * http://www.extjs.com/license
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
  */
-
 // for old browsers
 window.undefined = window.undefined;
 
@@ -26,7 +26,12 @@ Ext = {
      * The version of the framework
      * @type String
      */
-    version : '3.0.1'
+    version : '3.4.0',
+    versionDetail : {
+        major : 3,
+        minor : 4,
+        patch : 0
+    }
 };
 
 <div id="method-Ext-apply"></div>/**
@@ -58,18 +63,20 @@ Ext.apply = function(o, c, defaults){
             return r.test(ua);
         },
         DOC = document,
+        docMode = DOC.documentMode,
         isStrict = DOC.compatMode == "CSS1Compat",
         isOpera = check(/opera/),
-        isChrome = check(/chrome/),
+        isChrome = check(/\bchrome\b/),
         isWebKit = check(/webkit/),
         isSafari = !isChrome && check(/safari/),
         isSafari2 = isSafari && check(/applewebkit\/4/), // unique to Safari 2
         isSafari3 = isSafari && check(/version\/3/),
         isSafari4 = isSafari && check(/version\/4/),
         isIE = !isOpera && check(/msie/),
-        isIE7 = isIE && check(/msie 7/),
-        isIE8 = isIE && check(/msie 8/),
-        isIE6 = isIE && !isIE7 && !isIE8,
+        isIE7 = isIE && (check(/msie 7/) || docMode == 7),
+        isIE8 = isIE && (check(/msie 8/) && docMode != 7),
+        isIE9 = isIE && check(/msie 9/),
+        isIE6 = isIE && !isIE7 && !isIE8 && !isIE9,
         isGecko = !isWebKit && check(/gecko/),
         isGecko2 = isGecko && check(/rv:1\.8/),
         isGecko3 = isGecko && check(/rv:1\.9/),
@@ -93,7 +100,7 @@ Ext.apply = function(o, c, defaults){
          * the IE insecure content warning (<tt>'about:blank'</tt>, except for IE in secure mode, which is <tt>'javascript:""'</tt>).
          * @type String
          */
-        SSL_SECURE_URL : isSecure && isIE ? 'javascript:""' : 'about:blank', 
+        SSL_SECURE_URL : isSecure && isIE ? 'javascript:""' : 'about:blank',
         <div id="prop-Ext-isStrict"></div>/**
          * True if the browser is in strict (standards-compliant) mode, as opposed to quirks mode
          * @type Boolean
@@ -116,6 +123,14 @@ Ext.apply = function(o, c, defaults){
          * @property enableFx
          */
 
+        <div id="prop-Ext-enableForcedBoxModel"></div>/**
+         * HIGHLY EXPERIMENTAL
+         * True to force css based border-box model override and turning off javascript based adjustments. This is a
+         * runtime configuration and must be set before onReady.
+         * @type Boolean
+         */
+        enableForcedBoxModel : false,
+
         <div id="prop-Ext-enableGarbageCollector"></div>/**
          * True to automatically uncache orphaned Ext.Elements periodically (defaults to true)
          * @type Boolean
@@ -123,11 +138,17 @@ Ext.apply = function(o, c, defaults){
         enableGarbageCollector : true,
 
         <div id="prop-Ext-enableListenerCollection"></div>/**
-         * True to automatically purge event listeners after uncaching an element (defaults to false).
-         * Note: this only happens if {@link #enableGarbageCollector} is true.
+         * True to automatically purge event listeners during garbageCollection (defaults to false).
          * @type Boolean
          */
         enableListenerCollection : false,
+
+        <div id="prop-Ext-enableNestedListenerRemoval"></div>/**
+         * EXPERIMENTAL - True to cascade listener removal to child elements when an element is removed.
+         * Currently not optimized for performance.
+         * @type Boolean
+         */
+        enableNestedListenerRemoval : false,
 
         <div id="prop-Ext-USE_NATIVE_JSON"></div>/**
          * Indicates whether to use native browser parsing for JSON methods.
@@ -162,7 +183,11 @@ Ext.apply = function(o, c, defaults){
          * @return {String} The generated Id.
          */
         id : function(el, prefix){
-            return (el = Ext.getDom(el) || {}).id = el.id || (prefix || "ext-gen") + (++idSeed);
+            el = Ext.getDom(el, true) || {};
+            if (!el.id) {
+                el.id = (prefix || "ext-gen") + (++idSeed);
+            }
+            return el.id;
         },
 
         <div id="method-Ext-extend"></div>/**
@@ -204,7 +229,7 @@ MyGridPanel = Ext.extend(Ext.grid.GridPanel, {
          * prototype, and are therefore shared among all instances of the new class.</div></li>
          * </ul></div>
          *
-         * @param {Function} subclass The constructor of class being extended.
+         * @param {Function} superclass The constructor of class being extended.
          * @param {Object} overrides <p>A literal with members which are copied into the subclass's
          * prototype, and are therefore shared between all instances of the new class.</p>
          * <p>This may contain a special member named <tt><b>constructor</b></tt>. This is used
@@ -212,7 +237,7 @@ MyGridPanel = Ext.extend(Ext.grid.GridPanel, {
          * <i>not</i> specified, a constructor is generated and returned which just calls the
          * superclass's constructor passing on its parameters.</p>
          * <p><b>It is essential that you call the superclass constructor in any provided constructor. See example code.</b></p>
-         * @return {Function} The subclass constructor.
+         * @return {Function} The subclass constructor from the <code>overrides</code> parameter, or a generated one if not provided.
          */
         extend : function(){
             // inline overrides
@@ -224,7 +249,7 @@ MyGridPanel = Ext.extend(Ext.grid.GridPanel, {
             var oc = Object.prototype.constructor;
 
             return function(sb, sp, overrides){
-                if(Ext.isObject(sp)){
+                if(typeof sp == 'object'){
                     overrides = sp;
                     sp = sb;
                     sb = overrides.constructor != oc ? overrides.constructor : function(){sp.apply(this, arguments);};
@@ -274,7 +299,7 @@ Ext.override(MyClass, {
             if(overrides){
                 var p = origclass.prototype;
                 Ext.apply(p, overrides);
-                if(Ext.isIE && overrides.toString != origclass.toString){
+                if(Ext.isIE && overrides.hasOwnProperty('toString')){
                     p.toString = overrides.toString;
                 }
             }
@@ -296,15 +321,29 @@ Company.data.CustomStore = function(config) { ... }
          * @method namespace
          */
         namespace : function(){
-            var o, d;
-            Ext.each(arguments, function(v) {
-                d = v.split(".");
-                o = window[d[0]] = window[d[0]] || {};
-                Ext.each(d.slice(1), function(v2){
-                    o = o[v2] = o[v2] || {};
-                });
-            });
-            return o;
+            var len1 = arguments.length,
+                i = 0,
+                len2,
+                j,
+                main,
+                ns,
+                sub,
+                current;
+                
+            for(; i < len1; ++i) {
+                main = arguments[i];
+                ns = arguments[i].split('.');
+                current = window[ns[0]];
+                if (current === undefined) {
+                    current = window[ns[0]] = {};
+                }
+                sub = ns.slice(1);
+                len2 = sub.length;
+                for(j = 0; j < len2; ++j) {
+                    current = current[sub[j]] = current[sub[j]] || {};
+                }
+            }
+            return current;
         },
 
         <div id="method-Ext-urlEncode"></div>/**
@@ -380,19 +419,19 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          * @param {Iterable} the iterable object to be turned into a true Array.
          * @return (Array) array
          */
-        toArray : function(){
-            return isIE ?
-                function(a, i, j, res){
-                    res = [];
-                    Ext.each(a, function(v) {
-                        res.push(v);
-                    });
-                    return res.slice(i || 0, j || res.length);
-                } :
-                function(a, i, j){
-                    return Array.prototype.slice.call(a, i || 0, j || a.length);
-                }
-        }(),
+         toArray : function(){
+             return isIE ?
+                 function(a, i, j, res){
+                     res = [];
+                     for(var x = 0, len = a.length; x < len; x++) {
+                         res.push(a[x]);
+                     }
+                     return res.slice(i || 0, j || res.length);
+                 } :
+                 function(a, i, j){
+                     return Array.prototype.slice.call(a, i || 0, j || a.length);
+                 };
+         }(),
 
         isIterable : function(v){
             //check for array or arguments
@@ -405,7 +444,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
             }
             //NodeList has an item and length property
             //IXMLDOMNodeList has nextNode method, needs to be checked first.
-            return ((v.nextNode || v.item) && Ext.isNumber(v.length));
+            return ((typeof v.nextNode != 'undefined' || v.item) && Ext.isNumber(v.length));
         },
 
         <div id="method-Ext-each"></div>/**
@@ -457,10 +496,10 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          * <li>Arrays : <tt>(Object item, Number index, Array allItems)</tt>
          * <div class="sub-desc">
          * When iterating an array, the supplied function is called with each item.</div></li>
-         * <li>Objects : <tt>(String key, Object value)</tt>
+         * <li>Objects : <tt>(String key, Object value, Object)</tt>
          * <div class="sub-desc">
          * When iterating an object, the supplied function is called with each key-value pair in
-         * the object.</div></li>
+         * the object, and the iterated object</div></li>
          * </ul></div>
          * @param {Object} scope The scope (<code>this</code> reference) in which the specified function is executed. Defaults to
          * the <code>object</code> being iterated.
@@ -472,10 +511,10 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
             if(Ext.isIterable(obj)){
                 Ext.each(obj, fn, scope);
                 return;
-            }else if(Ext.isObject(obj)){
+            }else if(typeof obj == 'object'){
                 for(var prop in obj){
                     if(obj.hasOwnProperty(prop)){
-                        if(fn.call(scope || obj, prop, obj[prop]) === false){
+                        if(fn.call(scope || obj, prop, obj[prop], obj) === false){
                             return;
                         };
                     }
@@ -485,6 +524,8 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
 
         <div id="method-Ext-getDom"></div>/**
          * Return the dom node for the passed String (id), dom node, or Ext.Element.
+         * Optional 'strict' flag is needed for IE since it can return 'name' and
+         * 'id' elements by using getElementById.
          * Here are some examples:
          * <pre><code>
 // gets dom node based on id
@@ -504,11 +545,29 @@ function(el){
          * @param {Mixed} el
          * @return HTMLElement
          */
-        getDom : function(el){
+        getDom : function(el, strict){
             if(!el || !DOC){
                 return null;
             }
-            return el.dom ? el.dom : (Ext.isString(el) ? DOC.getElementById(el) : el);
+            if (el.dom){
+                return el.dom;
+            } else {
+                if (typeof el == 'string') {
+                    var e = DOC.getElementById(el);
+                    // IE returns elements with the 'name' and 'id' attribute.
+                    // we do a strict check to return the element with only the id attribute
+                    if (e && isIE && strict) {
+                        if (el == e.getAttribute('id')) {
+                            return e;
+                        } else {
+                            return null;
+                        }
+                    }
+                    return e;
+                } else {
+                    return el;
+                }
+            }
         },
 
         <div id="method-Ext-getBody"></div>/**
@@ -518,23 +577,49 @@ function(el){
         getBody : function(){
             return Ext.get(DOC.body || DOC.documentElement);
         },
+        
+        <div id="method-Ext-getHead"></div>/**
+         * Returns the current document body as an {@link Ext.Element}.
+         * @return Ext.Element The document body
+         */
+        getHead : function() {
+            var head;
+            
+            return function() {
+                if (head == undefined) {
+                    head = Ext.get(DOC.getElementsByTagName("head")[0]);
+                }
+                
+                return head;
+            };
+        }(),
 
+        <div id="prop-Ext-"></div>/**
+         * Removes a DOM node from the document.
+         */
         <div id="method-Ext-removeNode"></div>/**
-         * Removes a DOM node from the document.  The body node will be ignored if passed in.
+         * <p>Removes this element from the document, removes all DOM event listeners, and deletes the cache reference.
+         * All DOM event listeners are removed from this element. If {@link Ext#enableNestedListenerRemoval} is
+         * <code>true</code>, then DOM event listeners are also removed from all child nodes. The body node
+         * will be ignored if passed in.</p>
          * @param {HTMLElement} node The node to remove
          */
-        removeNode : isIE ? function(){
+        removeNode : isIE && !isIE8 ? function(){
             var d;
             return function(n){
                 if(n && n.tagName != 'BODY'){
+                    (Ext.enableNestedListenerRemoval) ? Ext.EventManager.purgeElement(n, true) : Ext.EventManager.removeAll(n);
                     d = d || DOC.createElement('div');
                     d.appendChild(n);
                     d.innerHTML = '';
+                    delete Ext.elCache[n.id];
                 }
-            }
+            };
         }() : function(n){
             if(n && n.parentNode && n.tagName != 'BODY'){
+                (Ext.enableNestedListenerRemoval) ? Ext.EventManager.purgeElement(n, true) : Ext.EventManager.removeAll(n);
                 n.parentNode.removeChild(n);
+                delete Ext.elCache[n.id];
             }
         },
 
@@ -578,7 +663,7 @@ function(el){
          * @return {Boolean}
          */
         isObject : function(v){
-            return v && typeof v == "object";
+            return !!v && Object.prototype.toString.call(v) === '[object Object]';
         },
 
         <div id="method-Ext-isPrimitive"></div>/**
@@ -624,6 +709,15 @@ function(el){
          */
         isBoolean : function(v){
             return typeof v === 'boolean';
+        },
+
+        <div id="method-Ext-isElement"></div>/**
+         * Returns true if the passed value is an HTMLElement
+         * @param {Mixed} value The value to test
+         * @return {Boolean}
+         */
+        isElement : function(v) {
+            return v ? !!v.tagName : false;
         },
 
         <div id="method-Ext-isDefined"></div>/**
@@ -690,6 +784,11 @@ function(el){
          * @type Boolean
          */
         isIE8 : isIE8,
+        <div id="prop-Ext-isIE9"></div>/**
+         * True if the detected browser is Internet Explorer 9.x.
+         * @type Boolean
+         */
+        isIE9 : isIE9,
         <div id="prop-Ext-isGecko"></div>/**
          * True if the detected browser uses the Gecko layout engine (e.g. Mozilla, Firefox).
          * @type Boolean
@@ -750,8 +849,9 @@ Company.data.CustomStore = function(config) { ... }
     Ext.ns = Ext.namespace;
 })();
 
-Ext.ns("Ext", "Ext.util", "Ext.lib", "Ext.data");
+Ext.ns('Ext.util', 'Ext.lib', 'Ext.data', 'Ext.supports');
 
+Ext.elCache = {};
 
 <div id="cls-Function"></div>/**
  * @class Function
@@ -977,6 +1077,6 @@ Ext.applyIf(Array.prototype, {
         return this;
     }
 });
-</pre>
+</pre>    
 </body>
 </html>
