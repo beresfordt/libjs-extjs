@@ -22,7 +22,7 @@ install:
 
 	# Install the javascript lib
 	mkdir -p $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs
-	cp -rf $(CURDIR)/ext-all-debug.js $(CURDIR)/ext.jsb2 $(CURDIR)/ext-all.js $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs
+	cp -rf $(CURDIR)/ext-all-debug.js $(CURDIR)/ext-all-debug-w-comments.js $(CURDIR)/ext.jsb2 $(CURDIR)/ext-all.js $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs
 	cp -rf $(CURDIR)/adapter $(CURDIR)/pkgs $(CURDIR)/resources $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs
 	#rmdir $(CURDIR)/debian/libjs-extjs/usr/share/javascript/extjs/resources/images/vista/dd
 
